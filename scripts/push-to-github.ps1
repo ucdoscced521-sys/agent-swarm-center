@@ -67,24 +67,37 @@ if ($existing -contains 'origin') {
     Warn "no 'origin' remote yet - will be added below."
 }
 
-# --- 4. try gh CLI first (it can create the private repo for you)
-$gh = Get-Command gh -ErrorAction SilentlyContinue
-if ($gh) {
-    Ok ("found gh: " + $gh.Source)
+# --- 4. locate gh: PATH first, then the portable install used on this machine
+$ghCmd = Get-Command gh -ErrorAction SilentlyContinue
+if (-not $ghCmd) {
+    $portable = Join-Path $env:LOCALAPPDATA 'gh-portable\bin\gh.exe'
+    if (Test-Path $portable) {
+        $ghCmd = Get-Item $portable
+        Ok ("found portable gh: " + $portable)
+    }
+}
+if ($ghCmd) {
+    $ghExe = $ghCmd.Source
+    Ok ("using gh: " + $ghExe)
     $authOk = $true
-    try { gh auth status > $null 2>&1 } catch { $authOk = $false }
+    & $ghExe auth status *> $null
+    if ($LASTEXITCODE -ne 0) { $authOk = $false }
     if (-not $authOk) {
         Warn "gh is installed but NOT authenticated."
         Say  ""
         Say  "Run this once, complete the browser login, then re-run this script:"
-        Say  "    gh auth login"
+        Say  "    & `"$ghExe`" auth login"
+        Say  ""
+        Say  "Or, if you already have a Personal Access Token:"
+        Say  "    `$env:GH_TOKEN = 'ghp_xxx'"
+        Say  "    .\scripts\push-to-github.ps1 -RepoName $RepoName"
         exit 2
     }
     Ok "gh is authenticated"
     $visFlag = "--$Visibility"
     if ($existing -notcontains 'origin') {
         Say "creating repo '$RepoName' ($Visibility) and pushing..."
-        gh repo create $RepoName --source . $visFlag --push
+        & $ghExe repo create $RepoName --source . $visFlag --push
         if ($LASTEXITCODE -ne 0) { Fail "gh repo create failed (exit $LASTEXITCODE)"; exit 1 }
         git push origin --tags
         Ok "done. tags pushed."
