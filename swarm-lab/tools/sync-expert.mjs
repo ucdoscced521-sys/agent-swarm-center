@@ -48,7 +48,9 @@ for (const [label, root] of CACHE_ROOTS) {
   }
 }
 DESTINATIONS.push(...STALE);
-const COPY_DIRS = ['agents', 'skills', 'schemas', 'contracts', 'tools', 'avatars'];
+// 注意必须包含清单目录 —— 版本号就写在 .codex-plugin/plugin.json 里，
+// 漏掉它会导致 Codex 侧一直装旧版本（实测：同步后 Codex 仍报 0.1.0）
+const COPY_DIRS = ['agents', 'skills', 'schemas', 'contracts', 'tools', 'avatars', '.codex-plugin', '.codebuddy-plugin'];
 const COPY_FILES = ['agents-fragment.md', 'manifest.yaml', 'README.md', 'settings.json'];
 
 const log = [];
