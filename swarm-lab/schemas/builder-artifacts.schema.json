@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Swarm Builder Artifacts",
+  "description": "builder 在只读沙箱下把【产物内容作为数据】返回，由编排层落盘。用于宿主禁止子进程写文件的环境。严格结构化输出模式：每个 object 的 properties 必须全部出现在 required 中。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["files", "verdict", "task", "agent", "evidence", "metrics", "handoff"],
+  "properties": {
+    "files": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 4,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "content"],
+        "properties": {
+          "path": { "type": "string", "maxLength": 128 },
+          "content": { "type": "string", "maxLength": 8000 }
+        }
+      },
+      "description": "要落盘的产物（相对路径 + 完整内容）。只放最终产物，不放草稿。"
+    },
+    "verdict": { "type": "string", "enum": ["PASS", "FAIL", "BLOCKED"] },
+    "task": { "type": "string", "pattern": "^T-[0-9A-Za-z-]+$", "maxLength": 32 },
+    "agent": { "type": "string", "minLength": 3, "maxLength": 64 },
+    "evidence": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 8,
+      "items": { "type": "string", "minLength": 3, "maxLength": 256 }
+    },
+    "metrics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["exit_code", "tests", "duration_s"],
+      "properties": {
+        "exit_code": { "type": "number" },
+        "tests": { "type": "string", "maxLength": 32 },
+        "duration_s": { "type": "number" }
+      }
+    },
+    "handoff": { "type": "string", "maxLength": 300 }
+  }
+}

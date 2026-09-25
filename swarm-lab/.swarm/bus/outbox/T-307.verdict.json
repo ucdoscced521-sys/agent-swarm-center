@@ -1,0 +1,15 @@
+{
+  "verdict": "PASS",
+  "task": "T-307",
+  "agent": "builder-core@sim",
+  "evidence": [
+    "evidence/T-307/nope.txt"
+  ],
+  "metrics": {
+    "exit_code": 0,
+    "tests": "2/2",
+    "duration_s": 1.2
+  },
+  "independent_level": "N/A",
+  "handoff": "完成，可进入下一环"
+}

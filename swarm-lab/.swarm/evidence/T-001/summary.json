@@ -1,0 +1,15 @@
+{
+  "deliverable": "src/count-fields.mjs",
+  "acceptance": [
+    {
+      "criterion": "sample.json -> 3, exit 0",
+      "result": "PASS",
+      "raw": "exit=0 out=3"
+    },
+    {
+      "criterion": "missing file -> non-zero exit",
+      "result": "PASS",
+      "raw": "exit=3"
+    }
+  ]
+}

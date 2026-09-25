@@ -1,0 +1,22 @@
+{
+  "name": "agent-swarm",
+  "version": "0.2.0",
+  "description": "Orchestrate independent agents across Codex and WorkBuddy to deliver one task end to end, with leaderboard-ranked expert recruitment and independent verification.",
+  "author": {
+    "name": "lxjhudan"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Agent Swarm Center",
+    "shortDescription": "One sentence in, verified delivery out",
+    "longDescription": "Decomposes a single request into independently verifiable subtasks, dispatches parallel agents in isolated worktrees across both hosts, recruits external experts by popularity leaderboard, consumes only PASS/FAIL verdicts, and keeps durable state on disk so any new session can resume.",
+    "developerName": "lxjhudan",
+    "category": "Engineering",
+    "capabilities": ["Read", "Write", "Bash", "Subagents"],
+    "defaultPrompt": [
+      "帮我完成这个任务，你自己拆解、自己派人、自己验收，中途不用问我。",
+      "用热度榜里最合适的专家来做这件事，并说明你为什么选它、备胎是谁。",
+      "接手上一阶段的进度：读取 .swarm/HANDOFF.md 和 brief.json 后继续推进。"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "phase": "P1-最小闭环",
+  "round": 1,
+  "done": [
+    "T-001"
+  ],
+  "active": [],
+  "blocked": [],
+  "next": [
+    "Step2 真并行（M1-M6 + 红队反测）"
+  ],
+  "assertions": "16/16"
+}

@@ -1,0 +1,4 @@
+-- acceptance 1 (sample.json) exit=0
+stdout: 3
+-- acceptance 2 (missing file) exit=3
+stderr: file not found: C:\Users\lxjhudan\WorkBuddy\2026-09-25-20-44-40\multi-agent-plugin\swarm-lab\nope.json

@@ -1,0 +1,140 @@
+{
+  "name": "agent-swarm",
+  "version": "0.2.0",
+  "description": "Deliver one task end to end by orchestrating independent agents across the WorkBuddy and Codex hosts, recruiting external experts by popularity leaderboard.",
+  "author": {
+    "name": "lxjhudan"
+  },
+  "agents": [
+    "./agents/agent-swarm-team-lead.md",
+    "./agents/scout-router.md",
+    "./agents/planner-splitter.md",
+    "./agents/builder-core.md",
+    "./agents/tester-breaker.md",
+    "./agents/verifier-independent.md",
+    "./agents/scribe-handoff.md",
+    "./agents/bridge-crosshost.md"
+  ],
+  "skills": [
+    "./skills/agent-swarm"
+  ],
+  "expertType": "team",
+  "agentName": "agent-swarm-team-lead",
+  "teamInfo": {
+    "leadAgent": "agent-swarm-team-lead",
+    "memberAgents": [
+      "scout-router",
+      "planner-splitter",
+      "builder-core",
+      "tester-breaker",
+      "verifier-independent",
+      "scribe-handoff",
+      "bridge-crosshost"
+    ]
+  },
+  "displayName": {
+    "zh": "蜂群调度中心",
+    "en": "Agent Swarm Center"
+  },
+  "profession": {
+    "zh": "蜂群调度中心",
+    "en": "Agent Swarm Center"
+  },
+  "displayDescription": {
+    "zh": "丢一句话即自主拆解交付：跨双宿主动态招募专家，真并行执行，异源独立验收，全流程可交接续跑。",
+    "en": "Turns one sentence into a verified delivery by orchestrating independent agents across two hosts, with independent verification and resumable handoff."
+  },
+  "categoryId": "02-Engineering",
+  "avatar": "avatars/agent-swarm-team-lead.png",
+  "defaultInitPrompt": {
+    "zh": "帮我完成这个任务，你自己拆解、自己派人、自己验收，中途不用问我。",
+    "en": "Complete this task end to end: decompose it, dispatch agents and verify on your own."
+  },
+  "plugin": "agent-swarm",
+  "tags": [
+    {
+      "zh": "多智能体编排",
+      "en": "Multi-agent Orchestration"
+    },
+    {
+      "zh": "跨宿主协同",
+      "en": "Cross-host Collaboration"
+    },
+    {
+      "zh": "自主交付",
+      "en": "Autonomous Delivery"
+    }
+  ],
+  "quickPrompts": [
+    {
+      "zh": "帮我完成这个任务，你自己拆解、自己派人、自己验收，中途不用问我。",
+      "en": "Complete this task end to end: decompose it, dispatch agents and verify on your own."
+    },
+    {
+      "zh": "用热度榜里最合适的专家来做这件事，并说明你为什么选它、备胎是谁。",
+      "en": "Use the best-ranked expert from the leaderboard and justify the choice plus the backup."
+    },
+    {
+      "zh": "接手上一阶段的进度：读取 .swarm/HANDOFF.md 和 brief.json 后继续推进。",
+      "en": "Resume the previous phase by reading .swarm/HANDOFF.md and brief.json, then continue."
+    }
+  ],
+  "members": [
+    {
+      "id": "agent-swarm-team-lead",
+      "displayName": { "zh": "隋调度", "en": "Swarm Team Lead" },
+      "profession": { "zh": "总调度长", "en": "Chief Orchestrator" },
+      "avatar": "avatars/agent-swarm-team-lead.png",
+      "role": "lead"
+    },
+    {
+      "id": "scout-router",
+      "displayName": { "zh": "甄可选", "en": "Scout Router" },
+      "profession": { "zh": "资源猎人", "en": "Resource Hunter" },
+      "avatar": "avatars/scout-router.png",
+      "role": "member"
+    },
+    {
+      "id": "planner-splitter",
+      "displayName": { "zh": "许分明", "en": "Planner Splitter" },
+      "profession": { "zh": "拆解参谋", "en": "Decomposition Strategist" },
+      "avatar": "avatars/planner-splitter.png",
+      "role": "member"
+    },
+    {
+      "id": "builder-core",
+      "displayName": { "zh": "寇图灵", "en": "Builder Core" },
+      "profession": { "zh": "主力编码官", "en": "Lead Builder" },
+      "avatar": "avatars/builder-core.png",
+      "role": "member"
+    },
+    {
+      "id": "tester-breaker",
+      "displayName": { "zh": "查必现", "en": "Tester Breaker" },
+      "profession": { "zh": "破防测试官", "en": "Adversarial Tester" },
+      "avatar": "avatars/tester-breaker.png",
+      "role": "member"
+    },
+    {
+      "id": "verifier-independent",
+      "displayName": { "zh": "严佐证", "en": "Verifier Independent" },
+      "profession": { "zh": "独立验收官", "en": "Independent Verifier" },
+      "avatar": "avatars/verifier-independent.png",
+      "role": "member"
+    },
+    {
+      "id": "scribe-handoff",
+      "displayName": { "zh": "纪长明", "en": "Scribe Handoff" },
+      "profession": { "zh": "交接书记官", "en": "Handoff Scribe" },
+      "avatar": "avatars/scribe-handoff.png",
+      "role": "member"
+    },
+    {
+      "id": "bridge-crosshost",
+      "displayName": { "zh": "连两岸", "en": "Bridge Crosshost" },
+      "profession": { "zh": "跨宿主桥接官", "en": "Cross-Host Bridge Operator" },
+      "avatar": "avatars/bridge-crosshost.png",
+      "role": "member"
+    }
+  ]
+}

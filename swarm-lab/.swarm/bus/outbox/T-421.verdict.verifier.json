@@ -1,0 +1,20 @@
+{
+  "agent": "verifier-independent@real",
+  "evidence": [
+    "evidence/T-421/verify-report.md"
+  ],
+  "files": [
+    {
+      "content": "# Independent verification: T-421\n\nVerdict: PASS — both acceptance criteria are supported by the supplied raw harness output and source.\n\n| Criterion | Raw evidence | Judgment |\n| --- | --- | --- |\n| AC1: sample.json prints 3, exit 0 | `node src/count-fields.mjs sample.json` returned `stdout=3`, `exit=0`. | PASS |\n| AC2: missing file exits non-zero | `node src/count-fields.mjs nope.json` returned `exit=1` with an ENOENT error. | PASS |\n\nThese judgments use the recorded command results, independently of the harness's PASS labels. The source is consistent with them: it prints the number of own enumerable top-level object keys and sets exit code 1 when reading or parsing fails.\n\nUntested case inspected: a top-level JSON array such as `[]` is explicitly rejected by `Array.isArray(value)`. The catch block prints `Top-level JSON value must be an object` to stderr and sets exit code 1. The same rejection applies to null and primitive JSON values. This behavior is established by source inspection, not a recorded execution.\n\nScope: reviewed the supplied source and raw output; did not independently rerun commands or inspect sample.json. Duration was not measured; the reported duration_s value of 0 is a placeholder.\n",
+      "path": "evidence/T-421/verify-report.md"
+    }
+  ],
+  "handoff": "Both criteria pass on the supplied raw evidence; the report also assesses untested non-object input handling.",
+  "metrics": {
+    "duration_s": 0,
+    "exit_code": 0,
+    "tests": "2/2"
+  },
+  "task": "T-421",
+  "verdict": "PASS"
+}

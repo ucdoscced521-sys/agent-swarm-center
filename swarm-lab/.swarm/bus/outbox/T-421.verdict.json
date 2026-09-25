@@ -1,0 +1,15 @@
+{
+  "verdict": "PASS",
+  "task": "T-421",
+  "agent": "builder-core@real",
+  "evidence": [
+    "evidence/T-421/selfcheck.md"
+  ],
+  "metrics": {
+    "exit_code": 0,
+    "tests": "2/2",
+    "duration_s": 52.9
+  },
+  "independent_level": "N/A",
+  "handoff": "Ready for the orchestration layer to save and test both deliverables."
+}

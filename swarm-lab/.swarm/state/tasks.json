@@ -1,0 +1,23 @@
+{
+  "phases": {
+    "P0": "done",
+    "P1": "done",
+    "P2": "done",
+    "P3": "done",
+    "P4": "done"
+  },
+  "tasks": [
+    {
+      "id": "T-001",
+      "goal": "count-fields CLI",
+      "status": "PASS",
+      "evidence": "evidence/T-001/"
+    },
+    {
+      "id": "T-901",
+      "goal": "故障注入探针",
+      "status": "PASS",
+      "evidence": "evidence/T-901/"
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+harness ran: node src/count-fields.mjs sample.json -> exit=0 stdout=3
+harness ran: node src/count-fields.mjs nope.json   -> exit=1 stderr=ENOENT: no such file or directory, open 'C:\Users\lxjhudan\WorkBuddy\2026-09-25-20-44-40\multi-agent-plugin\swarm-lab\runs\real-5b2\worktree\nope.json'
+AC1 (prints 3, exit 0): PASS
+AC2 (missing file non-zero): PASS

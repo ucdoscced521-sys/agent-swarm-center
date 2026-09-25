@@ -1,0 +1,1 @@
+{"agent":"builder-core@local","evidence":["evidence/T-411/proof.txt"],"handoff":"delivered","independent_level":"N/A","metrics":{"duration_s":1.5,"exit_code":0,"tests":"2/2"},"task":"T-411","verdict":"PASS"}

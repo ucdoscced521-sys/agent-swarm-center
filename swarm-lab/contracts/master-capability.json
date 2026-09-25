@@ -1,0 +1,45 @@
+{
+  "$comment": "主脑能力契约 —— 「只调度不干活」的唯一事实源。原则：写能力被物理移除，而不是靠提示词自律。判序：deny 优先 → allow 匹配 → 否则默认拒绝（defaultPolicy=deny）。",
+  "role": "swarm-team-lead",
+  "version": "1.0.1",
+  "defaultPolicy": "deny",
+  "denyWins": true,
+
+  "allow": [
+    { "tool": "Agent", "note": "spawn 子智能体 —— 主脑唯一\"做事\"的方式是派人" },
+    { "tool": "SendMessage", "note": "向子智能体派单/收单" },
+    { "action": "read", "path": ".swarm/contract.md" },
+    { "action": "read", "path": ".swarm/HANDOFF.md" },
+    { "action": "read", "path": ".swarm/decisions.md" },
+    { "action": "read", "path": ".swarm/state/brief.json" },
+    { "action": "read", "path": ".swarm/state/tasks.json" },
+    { "action": "read", "path": ".swarm/bus/outbox/*.verdict.head", "note": "只允许读判定首行，禁止读正文" },
+    { "action": "write", "path": ".swarm/bus/inbox/*.task.md", "note": "派单说明书" },
+    { "action": "write", "path": ".swarm/decisions.md", "note": "记录决策理由" },
+    { "action": "write", "path": ".swarm/state/tasks.json" },
+    { "action": "append", "path": ".swarm/state/events.jsonl" }
+  ],
+
+  "deny": [
+    { "tool": "Bash", "note": "禁止执行任何命令" },
+    { "tool": "MultiEdit", "note": "禁止批量编辑" },
+    { "tool": "NotebookEdit", "note": "禁止改 notebook" },
+    { "action": "exec", "path": "*", "note": "任何形式的命令执行" },
+    { "action": "read", "path": "*.verdict.body", "note": "禁止读 verdict 正文（上下文卫生）" },
+    { "action": "read", "path": ".swarm/bus/outbox/*.body" },
+    { "action": "write", "path": "src/**", "note": "交付物不是主脑写的" },
+    { "action": "write", "path": "*.html" },
+    { "action": "write", "path": "*.mjs" },
+    { "action": "write", "path": "*.js" },
+    { "action": "write", "path": ".swarm/evidence/**", "note": "证据只能由执行者产出" },
+    { "action": "write", "path": ".swarm/bus/outbox/**", "note": "判定只能由执行者写" },
+    { "action": "read", "path": ".swarm/evidence/**", "note": "证据由验收者读，不由主脑读" },
+    { "action": "read", "path": "src/**", "note": "主脑不读代码" }
+  ],
+
+  "audit": {
+    "log": ".swarm/state/events.jsonl",
+    "event": "capability.decision",
+    "note": "每一次授权判定都必须留痕，供事后审计"
+  }
+}

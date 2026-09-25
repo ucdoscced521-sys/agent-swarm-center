@@ -1,0 +1,55 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Swarm Verdict",
+  "description": "子智能体回流判定的唯一结构契约。设计原则：只装指针不装正文。⚠️ 真实 provider 的严格结构化输出模式要求每个 object 的 properties 必须【全部】出现在 required 中（additionalProperties=false 同理）—— 因此本契约不再有\"可选字段\"，改用最简必需集。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["verdict", "task", "agent", "evidence", "metrics", "independent_level", "handoff"],
+  "properties": {
+    "verdict": {
+      "type": "string",
+      "enum": ["PASS", "FAIL", "BLOCKED"],
+      "description": "必须严格大写三选一。禁止 PASSED / pass / Pass。"
+    },
+    "task": {
+      "type": "string",
+      "pattern": "^T-[0-9A-Za-z-]+$",
+      "maxLength": 32,
+      "description": "必须等于本次任务号，防止张冠李戴/串号。"
+    },
+    "agent": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 64,
+      "description": "谁能为此判定负责，形如 builder-core@local。"
+    },
+    "evidence": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 8,
+      "items": { "type": "string", "minLength": 3, "maxLength": 256 },
+      "description": "至少 1 项、必须是数组、只放路径不放内容。"
+    },
+    "metrics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["exit_code", "tests", "duration_s"],
+      "properties": {
+        "exit_code": { "type": "number" },
+        "tests": { "type": "string", "maxLength": 64 },
+        "duration_s": { "type": "number" }
+      },
+      "description": "三个必填数值/短标识。tests 只放短标识（如 \"88/88\"），不得写结论文句（上限 64 字符）。"
+    },
+    "independent_level": {
+      "type": "string",
+      "enum": ["L3_cross_vendor", "L2_strong", "L1_weak", "N/A"],
+      "description": "本次判定的异源级别。产出人（builder/tester）一律写 \"N/A\"；复核人（verifier-independent）必须写真实级别：L3_cross_vendor=不同厂商模型；L2_strong=同厂商但不同会话+不同身份+独立证据+未读对方结论；L1_weak=仅不同 agent 身份（按协议视为未验收）。"
+    },
+    "handoff": {
+      "type": "string",
+      "maxLength": 300,
+      "description": "下一环所需的最小信息，≤300 字符。必填（严格模式不允许可选字段）。"
+    }
+  }
+}
