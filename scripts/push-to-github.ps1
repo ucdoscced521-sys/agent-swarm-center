@@ -77,7 +77,9 @@ if (-not $ghCmd) {
     }
 }
 if ($ghCmd) {
-    $ghExe = $ghCmd.Source
+    # CommandInfo has .Source; FileInfo has .FullName. Normalize both.
+    $ghExe = if ($ghCmd.PSObject.Properties.Name -contains 'Source' -and $ghCmd.Source) { $ghCmd.Source } else { $ghCmd.FullName }
+    if (-not $ghExe) { Fail "could not resolve gh executable path"; exit 1 }
     Ok ("using gh: " + $ghExe)
     $authOk = $true
     & $ghExe auth status *> $null
