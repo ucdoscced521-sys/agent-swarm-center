@@ -103,21 +103,49 @@ if ($ghCmd) {
         exit 2
     }
     Ok "gh is authenticated"
+
+    # --- push with a one-shot auth header ---------------------------------
+    # WHY NOT plain `git push`:
+    #   1. In sandboxed hosts `git push` can return exit 128 with zero output while
+    #      credential helpers try to spawn a subprocess (helper = gh.exe).
+    #   2. The global `url.<mirror>.insteadOf = https://github.com/` rewrite can route
+    #      the push (and your token) through a third-party mirror. Using the direct
+    #      base URL or a :443 form avoids it.
+    # The header keeps the credential out of .git/config entirely.
+    $tok = ""
+    $prevTok = $ErrorActionPreference
+    try {
+        $ErrorActionPreference = 'Continue'
+        $tok = (& $ghExe auth token 2>&1 | Out-String).Trim()
+    } finally { $ErrorActionPreference = $prevTok }
+    if (-not $tok -or $tok -match 'error|not logged') {
+        Fail "could not read a token from gh (run 'gh auth login' or set GH_TOKEN)"
+        exit 2
+    }
+    $b64 = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes("x-access-token:" + $tok))
+    $hdr = "AUTHORIZATION: basic " + $b64
+
+    $direct = "https://github.com:443/" + $GitHubUser + "/" + $RepoName + ".git"
+    $urlRewrite = (& git config --global --get-regexp '^url\.' 2>&1 | Out-String)
+    if ($urlRewrite -match 'insteadof\s+https://github\.com/' -and $existing -contains 'origin') {
+        Warn "global url.insteadOf rewrite detected - pointing origin at the direct URL"
+        & git remote set-url origin $direct
+    }
+
     $visFlag = "--$Visibility"
     if ($existing -notcontains 'origin') {
-        Say "creating repo '$RepoName' ($Visibility) and pushing..."
-        & $ghExe repo create $RepoName --source . $visFlag --push
+        Say "creating repo '$RepoName' ($Visibility)..."
+        & $ghExe repo create $RepoName --source . $visFlag --remote origin
         if ($LASTEXITCODE -ne 0) { Fail "gh repo create failed (exit $LASTEXITCODE)"; exit 1 }
-        git push origin --tags
-        Ok "done. tags pushed."
-        exit 0
-    } else {
-        Say "origin exists; pushing current branch and tags..."
-        git push -u origin HEAD
-        git push origin --tags
-        Ok "done."
-        exit 0
     }
+
+    Say "pushing current branch and tags..."
+    & git -c http.extraheader=$hdr push -u origin HEAD
+    if ($LASTEXITCODE -ne 0) { Fail "git push (branch) failed - see output above"; exit 1 }
+    & git -c http.extraheader=$hdr push origin --tags
+    if ($LASTEXITCODE -ne 0) { Warn "tag push failed - branch is up; push tags manually" }
+    Ok "done."
+    exit 0
 }
 
 # --- 5. no gh: give exact manual steps
