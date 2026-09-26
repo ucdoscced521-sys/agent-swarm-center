@@ -184,16 +184,27 @@ if ($needLogin) {
     Say 'authorization received (token captured, not printed)'
 
     # ---------- 5. hand the token to gh (stdin, non-interactive) ----------
+    # TRAP: `gh auth login --with-token` REFUSES to run while GH_TOKEN is set in the
+    # environment ("The value of the GH_TOKEN environment variable is being used for
+    # authentication.", exit 1) and therefore never writes hosts.yml. Clear it for the
+    # call, then restore it for the API/git work that follows.
     $tokenFile = Join-Path $env:TEMP 'gh-token.txt'
     Set-Content -Path $tokenFile -Value $token -Encoding ASCII -NoNewline
-    $env:GH_TOKEN = $token
+    Remove-Item Env:GH_TOKEN -ErrorAction SilentlyContinue
     $login = (Get-Content -Path $tokenFile -Raw) | & $ghExe auth login --hostname github.com --with-token 2>&1 | Out-String
     if ($LASTEXITCODE -ne 0) { Say ("gh auth login output: " + ($login -replace '\s+', ' ')) }
+    $env:GH_TOKEN = $token
     $st2 = (& $ghExe auth status 2>&1 | Out-String)
     if ($LASTEXITCODE -ne 0) { Die 'gh auth status still failing after login' 2 }
     Say 'gh authenticated'
+    $hostsYml2 = Join-Path $env:APPDATA 'GitHub CLI\hosts.yml'
+    if (Test-Path $hostsYml2) {
+        Say 'credential persisted to hosts.yml (later runs need no browser step)'
+    } else {
+        Say 'WARNING: hosts.yml was not created - the credential is NOT persisted'
+    }
     Remove-Item -Path $tokenFile -Force -ErrorAction SilentlyContinue
-    Say 'temporary token file removed (credential now lives in gh hosts.yml only)'
+    Say 'temporary token file removed'
 }
 
 # ---------- 6. git: proxy + identity ----------
