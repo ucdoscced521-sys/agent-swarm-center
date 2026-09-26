@@ -97,7 +97,8 @@ multi-agent-plugin/
 │   └── 06-项目结构与维护指南.md       ★ 文件清单 + 改造/升级/同步
 │
 ├── scripts/
-│   └── push-to-github.ps1            ← 一键推送到私有仓库
+│   ├── gh-device-auth.ps1            ← 无 TTY 环境下的设备码授权 + 建私密仓库 + 推送
+│   └── push-to-github.ps1            ← 已登录后的一键推送
 │
 └── swarm-lab/                       ← 验证实验台（可重跑，非交付物）
     ├── tools/                       验证与运维脚本（16 个，零依赖）
