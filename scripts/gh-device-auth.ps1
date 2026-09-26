@@ -54,6 +54,7 @@ param(
     [string]$ClientId = '178c6fc778ccc68e1d6a',
     [string]$Scope = 'repo read:org',
     [int]$TimeoutSeconds = 900,
+    [switch]$Resume,
     [string]$LogFile = ''
 )
 
@@ -110,19 +111,38 @@ if (Test-Path $hostsYml) {
 $token = $null
 
 if ($needLogin) {
-    # ---------- 3. request device code ----------
-    $curlArgs = @('-s', '-X', 'POST', 'https://github.com/login/device/code',
-        '-H', 'Accept: application/json',
-        '-H', 'User-Agent: gh-cli',
-        '-d', ("client_id={0}&scope={1}" -f $ClientId, [uri]::EscapeDataString($Scope)),
-        '--max-time', '45')
-    if ($Proxy) { $curlArgs = @('--proxy', $Proxy) + $curlArgs }
-
-    $resp = (& curl.exe @curlArgs 2>&1 | Out-String)
+    # ---------- 3. obtain the device code ----------
+    # Two-phase mode: run once WITHOUT -Resume to get a code, show it to the human,
+    # and once WITH -Resume (after they authorized) to exchange it. This keeps the
+    # process short-lived: long-running pollers get reaped by sandboxed hosts, and a
+    # reaped poller means a dead device code.
+    $codeFile = Join-Path $env:TEMP 'gh-device.json'
     $dc = $null
-    try { $dc = $resp | ConvertFrom-Json } catch { $dc = $null }
-    if (-not $dc -or -not $dc.device_code) {
-        Die ("could not obtain device code. raw response: " + ($resp -replace '\s+', ' ')) 1
+
+    if ($Resume) {
+        if (-not (Test-Path $codeFile)) {
+            Die ("-Resume given but no saved device code at " + $codeFile + " - run once without -Resume first") 1
+        }
+        try { $dc = (Get-Content -Path $codeFile -Raw) | ConvertFrom-Json } catch { $dc = $null }
+        if (-not $dc -or -not $dc.device_code) {
+            Die 'saved device code is unreadable; run again without -Resume to get a fresh one' 1
+        }
+        Say 'resuming with saved device code (no new code requested)'
+    } else {
+        $curlArgs = @('-s', '-X', 'POST', 'https://github.com/login/device/code',
+            '-H', 'Accept: application/json',
+            '-H', 'User-Agent: gh-cli',
+            '-d', ("client_id={0}&scope={1}" -f $ClientId, [uri]::EscapeDataString($Scope)),
+            '--max-time', '45')
+        if ($Proxy) { $curlArgs = @('--proxy', $Proxy) + $curlArgs }
+
+        $resp = (& curl.exe @curlArgs 2>&1 | Out-String)
+        try { $dc = $resp | ConvertFrom-Json } catch { $dc = $null }
+        if (-not $dc -or -not $dc.device_code) {
+            Die ("could not obtain device code. raw response: " + ($resp -replace '\s+', ' ')) 1
+        }
+        [System.IO.File]::WriteAllText($codeFile, ($dc | ConvertTo-Json -Compress), (New-Object System.Text.UTF8Encoding($false)))
+        Say ("device code saved to " + $codeFile + " (use -Resume after authorizing)")
     }
 
     Say '--------------------------------------------------------------'
