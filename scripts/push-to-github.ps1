@@ -82,8 +82,15 @@ if ($ghCmd) {
     if (-not $ghExe) { Fail "could not resolve gh executable path"; exit 1 }
     Ok ("using gh: " + $ghExe)
     $authOk = $true
-    & $ghExe auth status *> $null
-    if ($LASTEXITCODE -ne 0) { $authOk = $false }
+    # NOTE: do NOT call a native exe that writes to stderr while
+    # ErrorActionPreference='Stop' - it raises NativeCommandError and aborts
+    # the script (symptom: wrong exit code, guidance never printed).
+    $prevEap = $ErrorActionPreference
+    try {
+        $ErrorActionPreference = 'Continue'
+        & $ghExe auth status *> $null
+        if ($LASTEXITCODE -ne 0) { $authOk = $false }
+    } finally { $ErrorActionPreference = $prevEap }
     if (-not $authOk) {
         Warn "gh is installed but NOT authenticated."
         Say  ""

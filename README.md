@@ -115,8 +115,9 @@ multi-agent-plugin/
 
 | 你想知道 | 看哪 |
 |---|---|
-| **怎么装、怎么用、怎么排查** | **[docs/05-使用说明.md](docs/05-使用说明.md)** |
+| **怎么装、怎么用、怎么排查** | **[docs/05-使用说明.md](docs/05-使用说明.md)** ← 含**常见示例**与**版本信息** |
 | 每个文件干什么、怎么改怎么升级 | [docs/06-项目结构与维护指南.md](docs/06-项目结构与维护指南.md) |
+| 版本历史 / 变更记录 | [CHANGELOG.md](CHANGELOG.md) |
 | 它到底验证过什么（9 步 / 91 条断言）| [swarm-lab/VALIDATION-SUMMARY.md](swarm-lab/VALIDATION-SUMMARY.md) |
 | 为什么这么设计 | [docs/01-开发方案-v1.0.md](docs/01-开发方案-v1.0.md) |
 | 双宿主怎么协同 | [docs/02-双宿主协同与部署架构-v2.md](docs/02-双宿主协同与部署架构-v2.md) |
