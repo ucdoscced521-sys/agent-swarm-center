@@ -1,5 +1,8 @@
 # 蜂群调度中心（Agent Swarm Center）
 
+> 📖 **文档语言**：[English usage guide](docs/en/05-usage-guide.md) ｜ 简体中文（本页）
+> Documentation index & policy: [`docs/README.md`](docs/README.md)
+
 > 一句话任务进 → 自主拆解 → **真并行**多个独立子智能体 → 独立验收 → 可验证的交付物出。
 > 面向 WorkBuddy 与 Codex 双宿主，跨会话可续跑。
 
@@ -89,12 +92,15 @@ multi-agent-plugin/
 │   └── README.md                        包级说明
 │
 ├── docs/                            ← 设计与人读文档
+│   ├── README.md                      ★ 文档地图 + 命名/语言/更新规范
 │   ├── 01-开发方案-v1.0.md
 │   ├── 02-双宿主协同与部署架构-v2.md
 │   ├── 03-跨宿主桥实测记录.md
 │   ├── 04-优化路线与验证计划.md
-│   ├── 05-使用说明.md                ★ 完整使用手册
-│   └── 06-项目结构与维护指南.md       ★ 文件清单 + 改造/升级/同步
+│   ├── 05-使用说明.md                 ★ 完整使用手册（中文）
+│   ├── 06-项目结构与维护指南.md         ★ 文件清单 + 改造/升级/同步
+│   └── en/
+│       └── 05-usage-guide.md         ★ English usage guide（面向一般用途）
 │
 ├── scripts/
 │   ├── gh-device-auth.ps1            ← 无 TTY 环境下的设备码授权 + 建私密仓库 + 推送
@@ -116,7 +122,9 @@ multi-agent-plugin/
 
 | 你想知道 | 看哪 |
 |---|---|
-| **怎么装、怎么用、怎么排查** | **[docs/05-使用说明.md](docs/05-使用说明.md)** ← 含**常见示例**与**版本信息** |
+| **怎么装、怎么用、怎么排查（English）** | **[docs/en/05-usage-guide.md](docs/en/05-usage-guide.md)** ← general purpose |
+| **怎么装、怎么用、怎么排查（中文）** | **[docs/05-使用说明.md](docs/05-使用说明.md)** ← 含**常见示例**与**版本信息** |
+| **文档放哪 / 怎么命名 / 何时双语 / 更新流程** | [docs/README.md](docs/README.md) |
 | 每个文件干什么、怎么改怎么升级 | [docs/06-项目结构与维护指南.md](docs/06-项目结构与维护指南.md) |
 | 版本历史 / 变更记录 | [CHANGELOG.md](CHANGELOG.md) |
 | 它到底验证过什么（9 步 / 91 条断言）| [swarm-lab/VALIDATION-SUMMARY.md](swarm-lab/VALIDATION-SUMMARY.md) |
