@@ -565,6 +565,7 @@ Full change history: **[`CHANGELOG.md`](../../CHANGELOG.md)**.
 | **Both hosts must be on the same version** | mismatched `plugin.json` files make Codex install the old version |
 | **Codex needs remove-then-add** | a plain `add` does not overwrite: `plugin remove agent-swarm@personal` first |
 | **No credentials in the package** | no tokens, keys or account data — safe to host publicly or privately |
+| **License** | **MIT** (see [`LICENSE`](../../LICENSE)) — use, modify, redistribute and sell freely; keep the copyright notice |
 
 ### 14.4 Upgrading / confirming which version is running
 

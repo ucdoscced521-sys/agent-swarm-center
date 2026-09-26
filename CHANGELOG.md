@@ -6,6 +6,12 @@
 
 ## Unreleased
 
+### 许可
+
+- **新增 `LICENSE`（MIT）** —— 仓库此前是"公开可见但保留所有权利"，别人**看得见但用不了**（fork 改造、集成都处在灰色地带）。加 MIT 后：可自由使用、修改、再分发、商用，只需保留版权与许可声明
+- README「许可」段重写：说明 MIT 具体授权什么、解释"没有 LICENSE 时会发生什么"，并保留一键切换 Apache-2.0 的入口
+- README 顶部徽章行补 `License: MIT` 徽章（GitHub 页同时会自动显示许可证）
+
 ### 文档
 
 - 新增**英文版使用说明** [`docs/en/05-usage-guide.md`](docs/en/05-usage-guide.md) —— 面向一般用途，14 节，与中文版内容等价；头部标注**译文基线**（`Translation baseline`），基线落后即需重新同步

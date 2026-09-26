@@ -4,6 +4,7 @@
 [![Forks](https://img.shields.io/github/forks/ucdoscced521-sys/agent-swarm-center?style=social&label=Fork)](https://github.com/ucdoscced521-sys/agent-swarm-center/forks)
 [![Watchers](https://img.shields.io/github/watchers/ucdoscced521-sys/agent-swarm-center?style=social&label=Watch)](https://github.com/ucdoscced521-sys/agent-swarm-center/watchers)
 [![Last commit](https://img.shields.io/github/last-commit/ucdoscced521-sys/agent-swarm-center?color=blue)](https://github.com/ucdoscced521-sys/agent-swarm-center/commits/master)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 > 📖 **文档语言**：[English usage guide](docs/en/05-usage-guide.md) ｜ 简体中文（本页）
 > Documentation index & policy: [`docs/README.md`](docs/README.md)
@@ -197,18 +198,15 @@ Star 的实际作用（不是客套话）：
 
 ## 许可
 
-**本仓库已公开：任何人都可以查看、克隆（clone）与拉取（pull）代码。**
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-**但目前未附开源许可证 —— 默认保留所有权利（All rights reserved）。**
-请注意一个常见误解：**"公开可见" ≠ "授权使用"**。没有 `LICENSE` 文件时，默认不授予他人使用、修改、再分发或商用的权利。
+**[MIT](LICENSE) © 2026 ucdoscced521-sys** —— 你可以**自由地**使用、修改、再分发、商用，
+**唯一要求是保留版权与许可声明**（把 `LICENSE` 文件随副本一起带上即可）。软件按"现状"提供，不含任何担保。
 
-如果想放宽（推荐，尤其你希望别人真的用起来）：
+**没有 LICENSE 时会发生什么（这曾经是本仓库的状态）**：仓库公开 ≠ 授权使用。
+默认版权法下，"保留所有权利"意味着别人**看得见但用不了**——想 fork 来改、或拿去集成都会处在灰色地带。
+**加一个 LICENSE 文件，是让项目真正可用的最后一步。**
 
-| 许可证 | 适合场景 | 特点 |
-|---|---|---|
-| **MIT** | 想让人**随便用**，追求最大采用率 | 极简，只需保留版权与许可声明 |
-| **Apache-2.0** | 想让人用，且希望**明确专利授权** | 比 MIT 多专利授权与商标条款 |
+想换成 **Apache-2.0**（多一条明确的专利授权与商标条款，对要引入的企业更友好）：说一句即可，1 分钟替换。
 
-选定后加上根目录的 `LICENSE` 文件即可（GitHub 会自动识别并在仓库页显示徽章）。
-
-**只想先聊聊用途** → 开一个 [Issue](https://github.com/ucdoscced521-sys/agent-swarm-center/issues) 即可。
+只想先聊聊用途 → 开一个 [Issue](https://github.com/ucdoscced521-sys/agent-swarm-center/issues) 即可。
