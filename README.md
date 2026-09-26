@@ -1,5 +1,10 @@
 # 蜂群调度中心（Agent Swarm Center）
 
+[![Stars](https://img.shields.io/github/stars/ucdoscced521-sys/agent-swarm-center?style=social&label=Star)](https://github.com/ucdoscced521-sys/agent-swarm-center/stargazers)
+[![Forks](https://img.shields.io/github/forks/ucdoscced521-sys/agent-swarm-center?style=social&label=Fork)](https://github.com/ucdoscced521-sys/agent-swarm-center/forks)
+[![Watchers](https://img.shields.io/github/watchers/ucdoscced521-sys/agent-swarm-center?style=social&label=Watch)](https://github.com/ucdoscced521-sys/agent-swarm-center/watchers)
+[![Last commit](https://img.shields.io/github/last-commit/ucdoscced521-sys/agent-swarm-center?color=blue)](https://github.com/ucdoscced521-sys/agent-swarm-center/commits/master)
+
 > 📖 **文档语言**：[English usage guide](docs/en/05-usage-guide.md) ｜ 简体中文（本页）
 > Documentation index & policy: [`docs/README.md`](docs/README.md)
 
@@ -157,6 +162,36 @@ multi-agent-plugin/
 - **跨宿主 CLI 通道**（Codex → WorkBuddy）在受限环境下未能跑通，现走文件总线兜底
 - **异源验收**在单模型环境下只能达到 L2（强异源），非 L3（不同厂商）
 - 前端类交付物**无自动化视觉覆盖**，界面正确性需人工走查
+
+---
+
+## ⭐ 喜欢这个项目？
+
+**GitHub 没有独立的"点赞"功能 —— Star 就是唯一的那一下。** 点右上角的 **Star** 即可：
+
+[![Star this repo](https://img.shields.io/badge/%E2%AD%90_Star-this_repo-blue?style=for-the-badge&logo=github)](https://github.com/ucdoscced521-sys/agent-swarm-center/stargazers)
+
+Star 的实际作用（不是客套话）：
+
+| 作用 | 说明 |
+|---|---|
+| **提高被发现概率** | GitHub 的推荐、趋势与搜索结果都会参考 Star 数——这是陌生人找到它的**唯一**途径 |
+| **给维护者正反馈** | Star 数是"这东西有人在乎"的客观信号，直接影响这个项目还会不会被继续投入 |
+| **方便你自己回来找** | Star 过的仓库出现在你的 Stars 列表里，等于给自己加书签 |
+| **顺带留个痕** | 你的头像会出现在 [Stargazers](https://github.com/ucdoscced521-sys/agent-swarm-center/stargazers) 页面上 |
+
+**其他参与方式**（比 Star 更重，但更有用）：
+
+| 想做什么 | 怎么做 |
+|---|---|
+| **提问题 / 报 Bug** | 开 [Issue](https://github.com/ucdoscced521-sys/agent-swarm-center/issues) |
+| **按自己的需要改** | **Fork** 一份（右上角 Fork / 上面的 Fork 徽章），改完可以提 PR |
+| **只想拿代码** | `git clone https://github.com/ucdoscced521-sys/agent-swarm-center.git` |
+| **想投票 / 表态** | 在 Issue 或 Discussions 里用 **👍 表情回应**（GitHub 的 reaction 体系）|
+| **单纯关注更新** | 右上角 **Watch** → 选 `Custom` → `Releases only`，只在发版时通知你 |
+
+> If this project helps you, please hit **⭐ Star** at the top right — it is the only way GitHub
+> surfaces the repo to others, and it is the main signal that this project is worth maintaining.
 
 ---
 
